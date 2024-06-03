@@ -6,6 +6,95 @@
     <title>Document</title>
 </head>
 <body>
-    나트랑
+    <form name="popup_form">
+    <div id="divpop1" class="divpop">    
+        <div class="con_area">
+            콘텐츠 영역
+            <img src="../../static/images/popup/popup_01.png" alt="" style="width:100%;" >
+        </div>
+        <div class="button_area">
+            <input class="chk1" type='checkbox' name='chkbox' id='todaycloseyn' value='Y'> 
+            <label class="chk_label1" for="todaycloseyn">오늘 하루 이 창을 열지 않음</label>
+        </div>
+        <a class="closeBtn" href='#' onclick="javascript:closeWin(1);"></a>
+    </div>
+</form>
+
+    <style>
+
+/* 레이어팝업 */
+.divpop {
+  position: fixed;
+  z-index: 9999999999;
+  top: 15rem;
+  left: 15rem;
+  width: 100%;
+  max-width: 600rem;
+  border: 1px solid #333;
+}
+.divpop .con_area {
+  font-weight: bold;
+  text-align: center;
+  width: 100%;
+}
+.divpop .button_area {
+  background: #44484D;
+  margin-top: -5px;
+  padding: 10rem;
+  color: #CBCED2;
+}
+.divpop .closeBtn {
+  width: 26rem;
+  height: 26rem;
+  position: absolute;
+  top: 15rem;
+  right: 15rem;
+}
+        
+    </style>
 </body>
+
+    <script>
+    //쿠키설정    
+    function setCookie( name, value, expiredays ) {
+    var todayDate = new Date();
+    todayDate.setDate( todayDate.getDate() + expiredays );
+    document.cookie = name + '=' + escape( value ) + '; path=/; expires=' + todayDate.toGMTString() + ';'
+    }
+
+    //쿠키 불러오기
+    function getCookie(name) 
+    { 
+        var obj = name + "="; 
+        var x = 0; 
+        while ( x <= document.cookie.length ) 
+        { 
+            var y = (x+obj.length); 
+            if ( document.cookie.substring( x, y ) == obj ) 
+            { 
+                if ((endOfCookie=document.cookie.indexOf( ";", y )) == -1 ) 
+                    endOfCookie = document.cookie.length;
+                return unescape( document.cookie.substring( y, endOfCookie ) ); 
+            } 
+            x = document.cookie.indexOf( " ", x ) + 1; 
+            
+            if ( x == 0 ) break; 
+        } 
+        return ""; 
+    }
+
+    //닫기 버튼 클릭시
+    function closeWin(key){
+        if($("#todaycloseyn").prop("checked")){
+            setCookie('divpop'+key, 'Y' , 1 );
+        }
+        $("#divpop"+key+"").hide();
+    }
+
+    $(function(){    
+        if(getCookie("divpop1") !="Y"){
+            $("#divpop1").show();
+        }
+    });
+</script>
 </html>
